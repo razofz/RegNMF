@@ -6,6 +6,24 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
+// Cvar2
+double Cvar2(NumericVector AA, double Mean, int length);
+RcppExport SEXP _RegNMF_Cvar2(SEXP AASEXP, SEXP MeanSEXP, SEXP lengthSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type AA(AASEXP);
+    Rcpp::traits::input_parameter< double >::type Mean(MeanSEXP);
+    Rcpp::traits::input_parameter< int >::type length(lengthSEXP);
+    rcpp_result_gen = Rcpp::wrap(Cvar2(AA, Mean, length));
+    return rcpp_result_gen;
+END_RCPP
+}
 // CNmf
 Rcpp::List CNmf(Eigen::Map<Eigen::MatrixXd> V, int K, int maxiter, Eigen::Map<Eigen::MatrixXd> W0, Eigen::Map<Eigen::MatrixXd> H0, int core);
 RcppExport SEXP _RegNMF_CNmf(SEXP VSEXP, SEXP KSEXP, SEXP maxiterSEXP, SEXP W0SEXP, SEXP H0SEXP, SEXP coreSEXP) {
@@ -85,6 +103,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_RegNMF_Cvar2", (DL_FUNC) &_RegNMF_Cvar2, 3},
     {"_RegNMF_CNmf", (DL_FUNC) &_RegNMF_CNmf, 6},
     {"_RegNMF_CPPNMF_cluster_joint_cross_domain_try", (DL_FUNC) &_RegNMF_CPPNMF_cluster_joint_cross_domain_try, 15},
     {"_RegNMF_Fold_RE_TG_MultiAdjustCore", (DL_FUNC) &_RegNMF_Fold_RE_TG_MultiAdjustCore, 4},
