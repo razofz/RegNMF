@@ -8,28 +8,29 @@ read_ATAC_GEX.default <- function(foldername) {
     C <- read.table(filename, sep = "\t")
     chr <- unique(C[, 4])
     chr <- chr[grep("^chr", chr)]
-    isATAC <- match(C[, 3], "Peaks")
-    isATAC[is.na(isATAC)] <- 0
-    isATAC <- as.logical(isATAC)
-    PeakName <- C[isATAC, 2]
-    Symbol <- C[!isATAC, 2]
+    is_atac <- match(C[, 3], "Peaks")
+    is_atac[is.na(is_atac)] <- 0
+    is_atac <- as.logical(is_atac)
+    peak_name <- C[is_atac, 2]
+    symbol <- C[!is_atac, 2]
     features <- C[, 2]
 
     chr_idx <- match(C[, 4], chr)
     chr_idx[is.na(chr_idx)] <- 0
 
-
-    symbol_location <- matrix(chr_idx[!isATAC], nrow = length(chr_idx[!isATAC]))
-    symbol_location <- cbind(symbol_location, C[!isATAC, 5])
-    peak_name_location <- matrix(chr_idx[isATAC],
-      nrow = length(chr_idx[isATAC])
+    symbol_location <- matrix(chr_idx[!is_atac],
+      nrow = length(chr_idx[!is_atac])
     )
-    peak_name_location <- cbind(peak_name_location, C[isATAC, 5])
+    symbol_location <- cbind(symbol_location, C[!is_atac, 5])
+    peak_name_location <- matrix(chr_idx[is_atac],
+      nrow = length(chr_idx[is_atac])
+    )
+    peak_name_location <- cbind(peak_name_location, C[is_atac, 5])
     filename <- paste0(foldername, "barcodes.tsv")
     barcode <- read.table(filename, sep = "\t")
 
     ## rna
-    f <- match(features, Symbol)
+    f <- match(features, symbol)
     d <- f
     d[is.na(d)] <- 0
     d <- as.logical(d)
@@ -41,11 +42,11 @@ read_ATAC_GEX.default <- function(foldername) {
     a_rna[, 1] <- f[a_rna[, 1]]
     E <- sparseMatrix(a_rna[, 1], a_rna[, 2],
       x = log2(1 + a_rna[, 3]),
-      dims = c(length(Symbol), length(barcode[, 1]))
+      dims = c(length(symbol), length(barcode[, 1]))
     )
 
     ## atac
-    f <- match(features, PeakName)
+    f <- match(features, peak_name)
     d <- f
     d[is.na(d)] <- 0
     d <- as.logical(d)
@@ -57,16 +58,16 @@ read_ATAC_GEX.default <- function(foldername) {
     a_atac[, 1] <- f[a_atac[, 1]]
     O <- sparseMatrix(a_atac[, 1], a_atac[, 2],
       x = log10(1 + a_atac[, 3]),
-      dims = c(length(PeakName), length(barcode[, 1]))
+      dims = c(length(peak_name), length(barcode[, 1]))
     )
 
     ##
     idx <- symbol_location[, 1] > 0
-    symbol <- Symbol[idx]
+    symbol <- symbol[idx]
     symbol_location <- symbol_location[idx, ]
     E <- E[idx, ]
     idx <- peak_name_location[, 1] > 0
-    peak_name <- PeakName[idx]
+    peak_name <- peak_name[idx]
     peak_name_location <- peak_name_location[idx, ]
     O <- O[idx, ]
     ## non-zero 10 cell
@@ -76,7 +77,7 @@ read_ATAC_GEX.default <- function(foldername) {
     E <- E[idx, ]
     idx <- rowSums(as.matrix(O) > 0) > 10
     peak_name <- peak_name[idx]
-    peakName_location <- peak_name_location[idx, ]
+    peak_name_location <- peak_name_location[idx, ]
     O <- O[idx, ]
 
     return(list(
@@ -86,7 +87,7 @@ read_ATAC_GEX.default <- function(foldername) {
       barcode = barcode,
       Symbol_location = symbol_location,
       Symbol = symbol,
-      Peak_location = peakName_location,
+      Peak_location = peak_name_location,
       chr = chr
     ))
   }
