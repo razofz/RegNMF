@@ -55,9 +55,14 @@ read_ATAC_GEX.default <- function(foldername) {
     tmp[is.na(tmp)] <- 0
     tmp <- as.logical(tmp)
     a_atac <- a[tmp, ]
+
+    rm(a)
+    gc()
+
     a_atac[, 1] <- f[a_atac[, 1]]
     O <- sparseMatrix(a_atac[, 1], a_atac[, 2],
-      x = log10(1 + a_atac[, 3]),
+      x = log2(1 + a_atac[, 3]), # to reflect paper
+      # x = log10(1 + a_atac[, 3]),
       dims = c(length(peak_name), length(barcode[, 1]))
     )
 
@@ -83,11 +88,11 @@ read_ATAC_GEX.default <- function(foldername) {
     return(list(
       E = E,
       O = O,
-      PeakName = peak_name,
+      peak_name = peak_name,
       barcode = barcode,
-      Symbol_location = symbol_location,
-      Symbol = symbol,
-      Peak_location = peak_name_location,
+      symbol_location = symbol_location,
+      symbol = symbol,
+      peak_location = peak_name_location,
       chr = chr
     ))
   }
