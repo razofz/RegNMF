@@ -1,6 +1,7 @@
 importFrom(Rcpp,sourceCpp,evalCpp)
 import(Matrix)
 import(lsa)
+import(stringr)
 import(ggplot2)
 import(Rtsne)
 import(GenomicRanges)
