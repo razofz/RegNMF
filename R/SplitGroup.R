@@ -1,4 +1,10 @@
-"SplitGroup" <- function(foldername,barcord,W3,H,Reg_symbol_name,Reg_peak_name,cluster){
-
-  UseMethod("SplitGroup");
-}
+"SplitGroup" <-
+  function(foldername,
+           barcode,
+           W3,
+           H,
+           reg_symbol_name,
+           reg_peak_name,
+           cluster) {
+    UseMethod("SplitGroup")
+  }

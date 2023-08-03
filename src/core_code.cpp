@@ -8,15 +8,16 @@ double Cvar2(NumericVector AA, double Mean, int length){
 }
 
 
+
 //[[Rcpp::export]]
-Rcpp::List CNmf(Eigen::Map<Eigen::MatrixXd> V, int K, int maxiter, Eigen::Map<Eigen::MatrixXd> W0,Eigen::Map<Eigen::MatrixXd> H0,int core){
+Rcpp::List CNmf(Eigen::Map<Eigen::MatrixXd> V, int K, int maxiter,
+      Eigen::Map<Eigen::MatrixXd> W0,Eigen::Map<Eigen::MatrixXd> H0,int core){
   Eigen::setNbThreads(core);
   int n = Eigen::nbThreads();
   Rprintf("Core=%d\n",n);
 
   Eigen::MatrixXd W(W0.rows(),W0.cols());
   Eigen::MatrixXd H(H0.rows(),H0.cols());
-
 
   for(int iter=0;iter<maxiter;iter++){
     Rcpp::checkUserInterrupt();
@@ -41,8 +42,6 @@ Rcpp::List CNmf(Eigen::Map<Eigen::MatrixXd> V, int K, int maxiter, Eigen::Map<Ei
                             Named("H") = wrap(H));
 }
 
-
-
 // [[Rcpp::export]]
 Rcpp::List CPPNMF_cluster_joint_cross_domain_try(Eigen::Map<Eigen::MatrixXd> PeakO,
                                                  Eigen::Map<Eigen::MatrixXd> X,
@@ -59,8 +58,6 @@ Rcpp::List CPPNMF_cluster_joint_cross_domain_try(Eigen::Map<Eigen::MatrixXd> Pea
                                                  NumericVector c2,
                                                  NumericVector Reg_w,
                                                  int core){
-
-
   Eigen::setNbThreads(core);
   int n = Eigen::nbThreads();
   Rprintf("Core=%d\n",n);
@@ -69,10 +66,6 @@ Rcpp::List CPPNMF_cluster_joint_cross_domain_try(Eigen::Map<Eigen::MatrixXd> Pea
   double sqrteps = sqrt(DBL_EPSILON);
   double dnorm,dnorm0;
   Eigen::MatrixXd HH, numerO,numerX, numerR ,W1, W2, W3, H, Tmp1, Tmp2,Tmp3,HT;
-
-
-
-
 
   dnorm0=(PeakO-(W10*H0)).squaredNorm()+(lambda1*(X-(W20*H0)).squaredNorm())+(lambda2*(Reg-(W30*H0)).squaredNorm());
 
@@ -89,15 +82,12 @@ Rcpp::List CPPNMF_cluster_joint_cross_domain_try(Eigen::Map<Eigen::MatrixXd> Pea
     HT=H.transpose();
     HH=H*HT;
 
-
     numerO=PeakO*HT;
     W1=ifzeroMCPP((W10.array()*(numerO.array()/(W10*HH+epsMCpp(numerO)).array())).matrix());
-
 
     numerX=X*HT;
 
     W2=ifzeroMCPP((W20.array()*(numerX.array()/(W20*HH+epsMCpp(numerX)).array())).matrix());
-
 
     Tmp1=chooesVinMCPP(W1,c2,0);
     Tmp2=chooesVinMCPP(W2,c1,0);
@@ -110,7 +100,6 @@ Rcpp::List CPPNMF_cluster_joint_cross_domain_try(Eigen::Map<Eigen::MatrixXd> Pea
 
     if(iter>300){
       if((dnorm0-dnorm)<=tolfun||(dnorm0-dnorm)<=dnorm0){
-
         Rprintf("dnorm0-dnorm %f is small", dnorm0-dnorm);
         break;
       }
@@ -124,7 +113,6 @@ Rcpp::List CPPNMF_cluster_joint_cross_domain_try(Eigen::Map<Eigen::MatrixXd> Pea
     W30 = W3;
 
     if(iter%20==0){
-    
       Tmp1=-(W1*H);
       Tmp1+=PeakO;
       dnorm=Tmp1.squaredNorm();
@@ -137,19 +125,13 @@ Rcpp::List CPPNMF_cluster_joint_cross_domain_try(Eigen::Map<Eigen::MatrixXd> Pea
     
       Rprintf("iteration %d\n",iter);
     }
-
-
 }
 
 return Rcpp::List::create(Named("W1") = wrap(W1),
                           Named("W2") = wrap(W2),
                           Named("W3") = wrap(W3),
                           Named("H") = wrap(H));
-
-
 }
-
-
 
 // [[Rcpp::export]]
 NumericMatrix Fold_RE_TG_MultiAdjustCore(NumericMatrix E2,
@@ -190,7 +172,6 @@ NumericMatrix Fold_RE_TG_MultiAdjustCore(NumericMatrix E2,
             cnt0++;
           }
         }
-
       }
 
       NumericVector set0 (cnt0);
@@ -205,15 +186,12 @@ NumericMatrix Fold_RE_TG_MultiAdjustCore(NumericMatrix E2,
           set1(cnt1)=E2(id(j),k);
           set1sqrt(cnt1)=E2sqrt(id(j),k);
           }
-
         else if (O2(i,k)==0) {
           cnt0--;
           set0(cnt0)=E2(id(j),k);
           set0sqrt(cnt0)=E2sqrt(id(j),k);
-
           }
       }
-
       }
       P_1(id(j),i)=Cttest(set1,set0,set1sqrt,set0sqrt,tsum,O2.cols()-tsum);
     }

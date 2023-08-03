@@ -5,7 +5,7 @@
 SplitGroup
 }
 \description{
-Allot cells(barcords) and regulations(peak - gene) to each clusters
+Allot cells(barcodes) and regulations(peak - gene) to each cluster
 }
 \usage{
 
@@ -13,23 +13,24 @@ Allot cells(barcords) and regulations(peak - gene) to each clusters
 
 \arguments{
   \item{foldername}{output  folder}
-  \item{barcord}{barcode of cell}
+  \item{barcode}{barcode of cell}
   \item{W3}{W3 in W123H}
   \item{H}{H in W123H}
-  \item{Reg_symbol_name}{Gene_name in W123H}
-  \item{Reg_peak_name}{peak_name in W123H}
+  \item{reg_symbol_name}{gene_name in W123H}
+  \item{reg_peak_name}{peak_name in W123H}
   \item{cluster}{}
 }
+
 \details{
-About argument barcord and cluster, should be matched.
+About argument barcode and cluster, should be matched.
 For example, if there are barcode A, B, C, belong cluster 1, 2, 1, 
 Then argument `barcode` and `cluster` should be \code{Vector} (A,B,C) and \code{Vector}(1,2,1)
 }
-\value{
-  \item{barcordFileName}{A tsv file contents barcodes with their cluster information}
-  \item{RegFolderName}{A folder contents regulations in each cluster as tsv file, will be filtered by peak of each cluster}
-}
 
+\value{
+  \item{barcode_file_name}{A tsv file contents barcodes with their cluster information}
+  \item{reg_folder_name}{A folder contents regulations in each cluster as tsv file, will be filtered by peak of each cluster}
+}
 
 \author{
 Cham

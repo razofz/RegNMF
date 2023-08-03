@@ -10,9 +10,9 @@ demo(in_foldername,out_foldername,fragment,macs2path,awkpath,core)
 \item{fragment}{fragment file}
 \item{macs2path}{macs2path}
 \item{bedtoolspath}{bedtoolspath}
-\item{core}{The number of core to use}
+\item{core}{The number of cores to use}
 }
 \description{
-clustering cell and detecting reguretory relationship
+clustering cell and detecting regulatory relationship
 }
 

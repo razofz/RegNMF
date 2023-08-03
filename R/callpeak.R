@@ -1,4 +1,10 @@
-callpeak<-function(outfolder,fragment,barcord_cluster_whole,oldRegFolder,macs2path,awkpath,cluster,clusterL){
-
+callpeak <- function(outfolder,
+                     fragment,
+                     barcode_cluster_whole,
+                     old_reg_folder,
+                     macs2path,
+                     awkpath,
+                     cluster,
+                     clusterL) {
   UseMethod("callpeak")
 }

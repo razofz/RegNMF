@@ -1,4 +1,3 @@
-"tfidf_trans" <-function(O){
-
-  UseMethod("tfidf_trans");
+"tfidf_trans" <- function(O) {
+  UseMethod("tfidf_trans")
 }

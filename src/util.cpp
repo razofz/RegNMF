@@ -1,6 +1,5 @@
 #include "../inst/include/util.h"
 
-
 // [[Rcpp::export]]
 double eps(double a){
   int i=1;
@@ -15,12 +14,8 @@ double eps(double a){
   return epsilon;
 }
 
-
-
 Eigen::MatrixXd CppoperationMA_demo(Eigen::MatrixXd M, NumericVector A,int type){
-
   Eigen::MatrixXd ans(M.rows(),M.cols());
-
   switch (type)
   {
   case 0:
@@ -51,13 +46,9 @@ Eigen::MatrixXd CppoperationMA_demo(Eigen::MatrixXd M, NumericVector A,int type)
       }
     }
     break;
-
   }
   return ans;
-
 }
-
-
 
 Eigen::MatrixXd ifzeroMCPP(Eigen::MatrixXd M){
   Eigen::MatrixXd ans(M.rows(),M.cols());
@@ -68,11 +59,9 @@ Eigen::MatrixXd ifzeroMCPP(Eigen::MatrixXd M){
       if(M(i,j)>0)    ans(i,j)=M(i,j);
       else    ans(i,j)=0;
     }
-
   }
   return ans;
 }
-
 
 Eigen::MatrixXd chooesVinMCPP(Eigen::MatrixXd M, NumericVector A ,int type){
   if(type==0){
@@ -84,7 +73,6 @@ Eigen::MatrixXd chooesVinMCPP(Eigen::MatrixXd M, NumericVector A ,int type){
     }
     return ans;
   }
-
   if(type==1){
     Eigen::MatrixXd ans(M.rows(),A.length());
     for(int i=0;i<ans.rows();i++){
@@ -94,7 +82,6 @@ Eigen::MatrixXd chooesVinMCPP(Eigen::MatrixXd M, NumericVector A ,int type){
     }
     return ans;
   }
-
 }
 
 Eigen::MatrixXd epsMCpp(Eigen::MatrixXd M){
@@ -105,20 +92,15 @@ Eigen::MatrixXd epsMCpp(Eigen::MatrixXd M){
     {
       ans(i,j)=eps(M(i,j));
     }
-
   }
   return ans;
 }
-
 
 double Cvar(NumericVector AA, double Mean, int length){
   double Sum=sum(AA)/(length-1);
   Sum-=pow(Mean,2.0)*length/(length-1);
   return Sum;
 }
-
-
-
 
 double Cttest(NumericVector A, NumericVector B,NumericVector AA,NumericVector BB,int lengthA, int lengthB){
   double meanA=sum(A)/lengthA;
@@ -130,7 +112,6 @@ double Cttest(NumericVector A, NumericVector B,NumericVector AA,NumericVector BB
 // [[Rcpp::export]]
 NumericMatrix Cjaccard(NumericMatrix MM){
   NumericMatrix M (MM.rows(),MM.cols());
-
   for(int i=0;i<MM.rows();i++){
     for(int j=0;j<MM.cols();j++){
       M(i,j)=MM(i,j)/(MM(i,i)+MM(j,j)-MM(i,j));

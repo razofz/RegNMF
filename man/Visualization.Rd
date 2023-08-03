@@ -5,7 +5,8 @@
   Reg Nonnegative Matrix Factorization
 }
 \description{
-Using result of callpeak, polt a Figure contain regulation and peak infomation.
+Using the results of callpeak, plot a Figure containing regulation and peak
+information.
 }
 \usage{
   RgeNMF(wholef,
@@ -19,15 +20,13 @@ Using result of callpeak, polt a Figure contain regulation and peak infomation.
         height=4)
 }
 
-
-
 %- maybe also 'usage' for other objects documented here.
 \arguments{
 \item{wholef=in_foldername}{Filtered feature barcode matrix file}
-\item{peakf}{Folder contain peak infomation for each cluster}
-\item{regf}{Folder contain regulation infomation for each cluster}
-\item{chr}{Which chromasome you want to see in the result(ex. "chr16").}
-\item{from,to}{Which region of the chromasome you want to see in the result.}
+\item{peakf}{Folder contain peak information for each cluster}
+\item{regf}{Folder contain regulation information for each cluster}
+\item{chr}{Which chromosome you want to see in the result(ex. "chr16").}
+\item{from,to}{Which region of the chromosome you want to see in the result.}
 \item{clusterlist}{Vector of cluster names}
 \item{width,height}{Figure size of result.}
 }

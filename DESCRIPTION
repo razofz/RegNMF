@@ -26,4 +26,3 @@ LinkingTo:
   RcppParallel
 Encoding: UTF-8
 LazyData: true
-

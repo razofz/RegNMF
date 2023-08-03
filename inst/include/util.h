@@ -2,19 +2,16 @@
 #define UTIL_H
 
 #include <Rcpp.h>
-#include<RcppEigen.h>
-#include<math.h>
-#include<float.h>
-#include<stdlib.h>
-#include<vector>
+#include <RcppEigen.h>
+#include <math.h>
+#include <float.h>
+#include <stdlib.h>
+#include <vector>
 
 // [[Rcpp::depends(RcppEigen)]]
 // [[Rcpp::plugins(cpp11)]]
 //[[Rcpp::plugins(openmp)]]
 using namespace Rcpp;
-
-
-
 
 double eps(double a);
 Eigen::MatrixXd CppoperationMA_demo(Eigen::MatrixXd M, NumericVector A,int type);

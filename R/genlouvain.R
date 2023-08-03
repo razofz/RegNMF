@@ -1,3 +1,3 @@
-"genlouvain"<-function(B){
+"genlouvain" <- function(B) {
   UseMethod("genlouvain")
 }

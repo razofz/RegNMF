@@ -8,14 +8,14 @@ call peak
 Call for each cluster
 }
 \usage{
-callpeak(outfolder,fragment,barcord_cluster_whole,oldRegFolder,macs2path,awkpath,cluster,clusterL)
+callpeak(outfolder,fragment,barcode_cluster_whole,old_reg_folder,macs2path,awkpath,cluster,clusterL)
 }
 
 \arguments{
   \item{outfolder}{result of RegNMF(W123$H)}
   \item{fragment}{fragment path}
-  \item{barcord_cluster_whole}{A file contain barcodes and cluster infomation}
-  \item{oldRegFolder}{A folder contain predicted regulation for each cluster}
+  \item{barcode_cluster_whole}{A file containing barcodes and cluster infomation}
+  \item{old_reg_folder}{A folder contain predicted regulation for each cluster}
   \item{macs2path}{macs2 path}
   \item{cluster}{Vector of cluster names}
   \item{clusterL}{Number of cluster}
